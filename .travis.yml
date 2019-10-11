@@ -1,0 +1,13 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+# Need super user permisions.
+# let travis use a copy of docker
+
+before_install:
+  - docker build -t kazamoney/docker-config -f Dockerfile.dev .
+script: 
+  - docker run -e CI=true kazamoney/docker-config npm run test
+  # - docker run kazamoney/docker-config npm run test -- --coverage
