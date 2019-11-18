@@ -1,68 +1,87 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Docker installation
 
-## Available Scripts
+Docker is a virtual machine that makes software installations easier
 
-In the project directory, you can run:
 
-### `npm start`
+## System requirements for Docker for mac
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* Mac hardware must be a 2010 or newer model, with Intel’s hardware support for memory management unit (MMU) virtualization, including Extended Page Tables (EPT) and Unrestricted Mode. You can check to see if your machine has this support by running the following command in a terminal: sysctl kern.hv_support
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+* macOS El Capitan 10.11 and newer macOS releases are supported. At a minimum, Docker for Mac requires macOS Yosemite 10.10.3 or newer, with the caveat that going forward 10.10.x is a use-at-your-own risk proposition.
 
-### `npm test`
+* Starting with Docker for Mac Stable release 1.13, and concurrent Edge releases, we no longer address issues specific to macOS Yosemite 10.10. In future releases, Docker for Mac could stop working on macOS Yosemite 10.10 due to the deprecated status of this macOS version. We recommend upgrading to the latest version of macOS.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* At least 4GB of RAM
 
-### `npm run build`
+* VirtualBox prior to version 4.3.30 must NOT be installed (it is incompatible with Docker for Mac). If you have a newer version of VirtualBox installed, it’s fine.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+## Installation
+* Make an account on [Docker Hub](https://hub.docker.com/)
+* For MacOS click install to install the docker installer.
+* Double-click **Docker.dmg** to open the installer, then drag Moby the whale to the Applications folder.
+* You are prompted to authorize Docker.app with your system password after you launch it. Privileged access is needed to install networking components and links to the Docker apps. The whale in the top status bar indicates that Docker is running, and accessible from a terminal.
+* If you just installed the app, you also get a success message with suggested next steps and a link to this documentation. Click the whale (whale
+menu) in the status bar to dismiss this popup.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Test it out in your terminal
+```bash
+docker run hello-world
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## System requirements for Docker for Windows
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* To run Docker, your machine must have a 64-bit operating system running Windows 7 or higher. Additionally, you must make sure that virtualization is enabled on your machine. 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+* Docker for Windows requires Microsoft Hyper-V to run. The Docker for Windows installer enables Hyper-V for you, if needed, and restart your machine. After Hyper-V is enabled, VirtualBox no longer works, but any VirtualBox VM images remain. VirtualBox VMs created with docker-machine (including the default one typically created during Toolbox install) no longer start. These VMs cannot be used side-by-side with Docker for Windows. However, you can still use docker-machine to manage remote VMs.
+* Virtualization must be enabled. Typically, virtualization is enabled by default. This is different from having Hyper-V enabled. For more detail see Virtualization must be enabled in Troubleshooting.
+* The current version of Docker for Windows runs on 64bit Windows 10 Pro, Enterprise and Education (1607 Anniversary Update, Build 14393 or later).
+Containers and images created with Docker for Windows are shared between all user accounts on machines where it is installed. This is because all Windows accounts use the same VM to build and run containers.
+* Nested virtualization scenarios, such as running Docker for Windows on a VMWare or Parallels instance, might work, but come with no guarantees. For more information, see Running Docker for Windows in nested virtualization scenarios
+What the Docker for Windows install includes: The installation provides Docker Engine, Docker CLI client, Docker Compose, Docker Machine, and Kitematic.
+* If you have Windows 10 Pro edition or Enterprise with Hyper-V enabled you can install Docker Desktop for Windows
+* If you have Windows other than Pro and Enterprise you can use Docker Toolbox which uses Oracle Virtual Box
 
-## Learn More
+## Installation Docker Desktop for Windows 10 Pro and Enterprise
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* Make an account on [Docker Hub](https://hub.docker.com/)
+* Download [Docker Desktop](https://www.docker.com/products/docker-desktop)
+* After installation clone this repository
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+git clone https://github.com/docker/doodle.git
+```
+* A Docker image is a private filesystem, just for your container. It provides all the files and code your container will need. Running the docker build command creates a Docker image using the Dockerfile. This built image is in your machine's local Docker image registry.
 
-### Code Splitting
+```bash
+cd doodle\cheers2019 ; 
+docker build -t [username]/cheers2019 .
+```
+* Run the container
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+```bash
+docker run -it --rm [username]/cheers2019
+```
+* Share the image to Docker Hub
 
-### Analyzing the Bundle Size
+```bash
+docker login ; 
+docker push [username]/cheers2019
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## Installation Docker Toolbox for Windows 10 Home
 
-### Making a Progressive Web App
+* To run Docker, your machine must have a 64-bit operating system running Windows 7 or higher. Additionally, you must make sure that virtualization is enabled on your machine.
+* Install the Docker Toolbox in [ToolBox Releases](https://github.com/docker/toolbox/releases) and install the latest version
+* Follow the installer wizard. Uncheck Virtualbox if you have already installed it
+* Click on Docker QuickStart Terminal
+* Now you will see bash open with the $ sign
+* Test Docker out with this command
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+```bash
+docker run hello-world
+```
 
-### Advanced Configuration
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
